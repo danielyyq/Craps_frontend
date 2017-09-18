@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <title>Craps Game</title>
+</head>
+<body class="t-app">
+<div class="main">
+  <div class="content content--is-centered">
+
+  <div class="content-body">
+    <h1 class="page-title">Crypto Craps V1</h1>
+    <br>
+    <p class="intro"></p>
+  </div><!--/content-body-->
+
+  <div class="content-app">
+
+<p>
+    <input type="checkbox" id="BetsOn" onclick="Game.Update();"><label for="BetsOn" title="Enable to leave buy bets, come odds, and hardway bets working on come-out rolls"> Leave bets working</label> &nbsp;
+    <input type="checkbox" id="BetsUp"><label for="BetsUp" title="Enable to leave winning bets up"> Leave winning bets up</label>
+</p>
+
+<link rel="stylesheet" type="text/css" href="craps.css" />
+<script type="text/javascript" src="animation.js"></script>
+<script type="text/javascript" src="font.js"></script>
+<script type="text/javascript" src="hotspot.js"></script>
+<script type="text/javascript" src="msgbox.js"></script>
+<script type="text/javascript" src="rng.js"></script>
+<script type="text/javascript" src="wager.js"></script>
+<script type="text/javascript" src="game.js"></script>
+
+<div id="loading"><script type="text/javascript">document.write("Loading, please wait...");</script><noscript>You must enable JavaScript in order to play this game.</noscript></div>
+
+<div id="cache">
+
+    <img src="button.png"           />
+    <img src="chip.png"             />
+    <img src="chip-selector.png"    />
+    <img src="dice.png"             />
+    <img src="font-black.png"       />
+    <img src="font-blue.png"        />
+    <img src="font-cyan.png"        />
+    <img src="font-green.png"       />
+    <img src="font-magenta.png"     />
+    <img src="font-red.png"         />
+    <img src="font-white.png"       />
+    <img src="font-yellow.png"      />
+    <img src="game.png"             />
+    <img src="msgbox.png"           />
+    <img src="puck.png"             />
+    <img src="trans.gif"            />
+    <img src="wager.png"            />
+
+</div>
+
+<div id="game" class="gameTransform">
+
+    <div id="message"></div>
+
+    <div class="wager" id="PassLine"></div>
+    <div class="wager" id="PassLineOdds"></div>
+    <div class="wager" id="DontPass"></div>
+    <div class="wager" id="DontPassOdds"></div>
+    <div class="wager" id="Field"></div>
+    <div class="wager" id="Come"></div>
+    <div class="wager" id="DontCome"></div>
+
+    <div class="wager" id="Lay4"></div>
+    <div class="wager" id="Lay5"></div>
+    <div class="wager" id="Lay6"></div>
+    <div class="wager" id="Lay8"></div>
+    <div class="wager" id="Lay9"></div>
+    <div class="wager" id="Lay10"></div>
+
+    <div class="wager" id="DontCome4"></div>
+    <div class="wager" id="DontCome5"></div>
+    <div class="wager" id="DontCome6"></div>
+    <div class="wager" id="DontCome8"></div>
+    <div class="wager" id="DontCome9"></div>
+    <div class="wager" id="DontCome10"></div>
+
+    <div class="wager" id="DontCome4Odds"></div>
+    <div class="wager" id="DontCome5Odds"></div>
+    <div class="wager" id="DontCome6Odds"></div>
+    <div class="wager" id="DontCome8Odds"></div>
+    <div class="wager" id="DontCome9Odds"></div>
+    <div class="wager" id="DontCome10Odds"></div>
+
+    <div class="wager" id="Come4"></div>
+    <div class="wager" id="Come5"></div>
+    <div class="wager" id="Come6"></div>
+    <div class="wager" id="Come8"></div>
+    <div class="wager" id="Come9"></div>
+    <div class="wager" id="Come10"></div>
+
+    <div class="wager" id="Come4Odds"></div>
+    <div class="wager" id="Come5Odds"></div>
+    <div class="wager" id="Come6Odds"></div>
+    <div class="wager" id="Come8Odds"></div>
+    <div class="wager" id="Come9Odds"></div>
+    <div class="wager" id="Come10Odds"></div>
+
+    <div class="wager" id="Buy4"></div>
+    <div class="wager" id="Buy5"></div>
+    <div class="wager" id="Buy6"></div>
+    <div class="wager" id="Buy8"></div>
+    <div class="wager" id="Buy9"></div>
+    <div class="wager" id="Buy10"></div>
+
+    <div class="wager" id="AnySeven"></div>
+    <div class="wager" id="Hard4"></div>
+    <div class="wager" id="Hard6"></div>
+    <div class="wager" id="Hard8"></div>
+    <div class="wager" id="Hard10"></div>
+    <div class="wager" id="Three"></div>
+    <div class="wager" id="Eleven"></div>
+    <div class="wager" id="Two"></div>
+    <div class="wager" id="Twelve"></div>
+    <div class="wager" id="AnyCraps"></div>
+
+    <div id="PassLine_stack"></div>
+    <div id="PassLineOdds_stack"></div>
+    <div id="DontPass_stack"></div>
+    <div id="DontPassOdds_stack"></div>
+    <div id="Field_stack"></div>
+    <div id="Come_stack"></div>
+    <div id="DontCome_stack"></div>
+
+    <div id="Lay4_stack"></div>
+    <div id="Lay5_stack"></div>
+    <div id="Lay6_stack"></div>
+    <div id="Lay8_stack"></div>
+    <div id="Lay9_stack"></div>
+    <div id="Lay10_stack"></div>
+
+    <div id="DontCome4_stack"></div>
+    <div id="DontCome5_stack"></div>
+    <div id="DontCome6_stack"></div>
+    <div id="DontCome8_stack"></div>
+    <div id="DontCome9_stack"></div>
+    <div id="DontCome10_stack"></div>
+
+    <div id="DontCome4Odds_stack"></div>
+    <div id="DontCome5Odds_stack"></div>
+    <div id="DontCome6Odds_stack"></div>
+    <div id="DontCome8Odds_stack"></div>
+    <div id="DontCome9Odds_stack"></div>
+    <div id="DontCome10Odds_stack"></div>
+
+    <div id="Come4_stack"></div>
+    <div id="Come5_stack"></div>
+    <div id="Come6_stack"></div>
+    <div id="Come8_stack"></div>
+    <div id="Come9_stack"></div>
+    <div id="Come10_stack"></div>
+
+    <div id="Come4Odds_stack"></div>
+    <div id="Come5Odds_stack"></div>
+    <div id="Come6Odds_stack"></div>
+    <div id="Come8Odds_stack"></div>
+    <div id="Come9Odds_stack"></div>
+    <div id="Come10Odds_stack"></div>
+
+    <div id="Buy4_stack"></div>
+    <div id="Buy5_stack"></div>
+    <div id="Buy6_stack"></div>
+    <div id="Buy8_stack"></div>
+    <div id="Buy9_stack"></div>
+    <div id="Buy10_stack"></div>
+
+    <div id="AnySeven_stack"></div>
+    <div id="Hard4_stack"></div>
+    <div id="Hard6_stack"></div>
+    <div id="Hard8_stack"></div>
+    <div id="Hard10_stack"></div>
+    <div id="Three_stack"></div>
+    <div id="Eleven_stack"></div>
+    <div id="Two_stack"></div>
+    <div id="Twelve_stack"></div>
+    <div id="AnyCraps_stack"></div>
+
+    <div id="PassLine_slider"></div>
+    <div id="PassLineOdds_slider"></div>
+    <div id="DontPass_slider"></div>
+    <div id="DontPassOdds_slider"></div>
+    <div id="Field_slider"></div>
+    <div id="Come_slider"></div>
+    <div id="DontCome_slider"></div>
+
+    <div id="Lay4_slider"></div>
+    <div id="Lay5_slider"></div>
+    <div id="Lay6_slider"></div>
+    <div id="Lay8_slider"></div>
+    <div id="Lay9_slider"></div>
+    <div id="Lay10_slider"></div>
+
+    <div id="DontCome4_slider"></div>
+    <div id="DontCome5_slider"></div>
+    <div id="DontCome6_slider"></div>
+    <div id="DontCome8_slider"></div>
+    <div id="DontCome9_slider"></div>
+    <div id="DontCome10_slider"></div>
+
+    <div id="DontCome4Odds_slider"></div>
+    <div id="DontCome5Odds_slider"></div>
+    <div id="DontCome6Odds_slider"></div>
+    <div id="DontCome8Odds_slider"></div>
+    <div id="DontCome9Odds_slider"></div>
+    <div id="DontCome10Odds_slider"></div>
+
+    <div id="Come4_slider"></div>
+    <div id="Come5_slider"></div>
+    <div id="Come6_slider"></div>
+    <div id="Come8_slider"></div>
+    <div id="Come9_slider"></div>
+    <div id="Come10_slider"></div>
+
+    <div id="Come4Odds_slider"></div>
+    <div id="Come5Odds_slider"></div>
+    <div id="Come6Odds_slider"></div>
+    <div id="Come8Odds_slider"></div>
+    <div id="Come9Odds_slider"></div>
+    <div id="Come10Odds_slider"></div>
+
+    <div id="Buy4_slider"></div>
+    <div id="Buy5_slider"></div>
+    <div id="Buy6_slider"></div>
+    <div id="Buy8_slider"></div>
+    <div id="Buy9_slider"></div>
+    <div id="Buy10_slider"></div>
+
+    <div id="AnySeven_slider"></div>
+    <div id="Hard4_slider"></div>
+    <div id="Hard6_slider"></div>
+    <div id="Hard8_slider"></div>
+    <div id="Hard10_slider"></div>
+    <div id="Three_slider"></div>
+    <div id="Eleven_slider"></div>
+    <div id="Two_slider"></div>
+    <div id="Twelve_slider"></div>
+    <div id="AnyCraps_slider"></div>
+
+    <div id="puck"><img id="puckimg" src="puck.png"></div>
+    <div class="puckoff" id="Come4Off"></div>
+    <div class="puckoff" id="Come5Off"></div>
+    <div class="puckoff" id="Come6Off"></div>
+    <div class="puckoff" id="Come8Off"></div>
+    <div class="puckoff" id="Come9Off"></div>
+    <div class="puckoff" id="Come10Off"></div>
+    <div class="puckoff" id="Buy4Off"></div>
+    <div class="puckoff" id="Buy5Off"></div>
+    <div class="puckoff" id="Buy6Off"></div>
+    <div class="puckoff" id="Buy8Off"></div>
+    <div class="puckoff" id="Buy9Off"></div>
+    <div class="puckoff" id="Buy10Off"></div>
+    <div class="puckoff" id="Hard4Off"></div>
+    <div class="puckoff" id="Hard6Off"></div>
+    <div class="puckoff" id="Hard8Off"></div>
+    <div class="puckoff" id="Hard10Off"></div>
+
+    <div id="die1"></div>
+    <div id="die2"></div>
+
+    <div id="balance"></div>
+    <div id="denom"></div>
+    <div id="denom0"></div>
+    <div id="denom1"></div>
+    <div id="denom2"></div>
+    <div id="denom3"></div>
+    <div id="wager"></div>
+    <div id="win"></div>
+
+    <div id="btn_roll"></div>
+    <div id="btn_clear"></div>
+
+    <div id="msgbox">
+
+        <div id="msgbox_title"></div>
+        <div id="msgbox_prompt"><table><tr><td id="msgbox_text"></td></tr></table></div>
+        <div id="msgbox_button"></div>
+
+    </div>
+
+    <div id="capture"></div>
+
+</div>
+
+    </div><!--/content-app-->
+
+            <div class="content-body">
+              <p><strong>Rules</strong></p>
+              <ol>
+              <li>3-4-5 odds are allowed.</li>
+              <li>Buy Bets Pay 7-6 on the 6 & 8, 7-5 on the 5 & 9, and 39-20 on the 4 & 10.</li>
+              <li>Lay bets pay true odds, This works out to odds of 19-25 on the 6 & 8, 19-31 on the 5 & 9, and 19-41 on the 4 & 10.</li>
+              <li>"keep bets working" then all bets will be on for come out rolls.  Otherwise, buy, hard ways, and odds on come bets will be turned off.</li>
+              <li>"leave winnings bets up" then only wins will be returned and the original wager will be re-bet. </li>
+              <li>Put bets and taking down don't pass and don't come bets, that are already on a number, are not allowed.</li>
+              </ol><br />
+              <p>Hold down the shift and control keys when you click "roll" to slow down the animations</p>
+    </div><!--/content-body-->
+
+  </div>
+</div>
+
+</body>
+</html>
